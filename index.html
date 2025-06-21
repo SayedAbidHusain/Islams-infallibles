@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Fourteen Infallibles of Islam</title>
+
+  <!-- Google Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+  <!-- Style -->
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: #0a0a0a;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    .intro-screen {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(to bottom right, #000, #111);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .intro-screen h1 {
+      font-size: 3rem;
+      color: white;
+      margin-bottom: 1rem;
+    }
+
+    .intro-screen button {
+      padding: 0.75rem 2rem;
+      font-size: 1rem;
+      background-color: #444;
+      border: none;
+      color: white;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 1rem 1rem;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      color: white;
+    }
+
+    header h2 {
+      font-size: 1.5rem;
+      color: #ccc;
+      margin-top: -10px;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      padding: 2rem;
+    }
+
+    .card {
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 1rem;
+      max-width: 300px;
+      text-align: center;
+      transition: transform 0.3s;
+      cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      font-size: 1.2rem;
+      color: white;
+    }
+
+    .read-more {
+      display: block;
+      margin-top: 0.5rem;
+      color: #0af;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* Modal Styling */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 10000;
+      padding: 2rem;
+      overflow-y: auto;
+    }
+
+    .modal-content {
+      max-width: 700px;
+      background: #111;
+      border-radius: 10px;
+      padding: 2rem;
+      margin: auto;
+      color: white;
+    }
+
+    .close-modal {
+      float: right;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* Responsive */
+    @media screen and (max-width: 600px) {
+      .card {
+        width: 90%;
+      }
+      header h1 {
+        font-size: 2rem;
+      }
+      header h2 {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Intro Screen -->
+  <div class="intro-screen" id="intro">
+    <h1>Welcome</h1>
+    <button onclick="document.getElementById('intro').style.display='none'">Enter Site</button>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <h1>Islam</h1>
+    <h2>The Fourteen Infallibles</h2>
+  </header>
+
+  <!-- Language Toggle Button -->
+  <button onclick="switchLanguage()" style="position: fixed; top: 1rem; left: 1rem; background: #333; color: #fff; border: none; padding: 0.5rem 1rem; border-radius: 5px; z-index: 1000;">
+    Switch Language
+  </button>
+
+  <!-- Theme Toggle -->
+  <button onclick="toggleTheme()" style="position: fixed; top: 1rem; right: 1rem; background: #333; color: #fff; border: none; padding: 0.5rem 1rem; border-radius: 5px; z-index: 1000;">
+    Toggle Theme
+  </button>
+
+  <!-- Cards -->
+  <div class="container">
+    <div class="card" onclick="openModal('muhammad')">
+      <h3>Prophet Muhammad ﷺ</h3>
+    </div>
+    <div class="card" onclick="openModal('fatima')">
+      <h3>Fatimah al-Zahra (سلام الله علیها)</h3>
+    </div>
+    <div class="card" onclick="openModal('ali')">
+      <h3>Imam Ali (ع)</h3>
+    </div>
+    <div class="card" onclick="openModal('hasan')">
+      <h3>Imam Hasan (ع)</h3>
+    </div>
+    <div class="card" onclick="openModal('husayn')">
+      <h3>Imam Husayn (ع)</h3>
+    </div>
+    <div class="card" onclick="openModal('zainulabidin')">
+      <h3>Imam Zayn al-Abidin (ع)</h3>
+    </div>
+    <div class="card" onclick="openModal('baqir')">
+      <h3>Imam Muhammad al-Baqir (ع)</h3>
+    </div>
+    <div class="card" onclick="openModal('sadiq')">
+      <h3>Imam Ja'far al-Sadiq (ع)</h3>
+    </div>
+    <div class="card" onclick="openModal('kazim')">
+      <h3>Imam Musa al-Kazim (ع)</h3>
+    </div>
+    <div class="card" onclick="openModal('ridha')">
+      <h3>Imam Ali al-Ridha (ع)</h3>
+    </div>
+    <div class="card" onclick="openModal('taqi')">
+      <h3>Imam Muhammad al-Taqi (ع)</h3>
+    </div>
+    <div class="card" onclick="openModal('hadi')">
+      <h3>Imam Ali al-Hadi (ع)</h3>
+    </div>
+    <div class="card" onclick="openModal('askari')">
+      <h3>Imam Hasan al-Askari (ع)</h3>
+    </div>
+    <div class="card" onclick="openModal('mahdi')">
+      <h3>Imam Muhammad al-Mahdi (عج)</h3>
+    </div>
+  </div>
+<!-- Prophet Muhammad ﷺ -->
+<div class="modal" id="modal-muhammad">
+  <div class="modal-content">
+    <button class="close-modal" onclick="closeModal('muhammad')">✖</button>
+    <h2>Prophet Muhammad ﷺ</h2>
+    <p>
+      Prophet Muhammad (570–632 CE), the final messenger of Islam, was born in Mecca. Through divine revelation, he brought the message of monotheism, social justice, and compassion. The Qur’an, revealed to him over 23 years, remains the holy book of Islam. He unified Arabia under the message of Islam and emphasized ethics, knowledge, and mercy. He is considered the "Seal of the Prophets."
+    </p>
+    <p><strong>Born:</strong> 570 CE, Mecca<br>
+    <strong>Died:</strong> 632 CE, Medina<br>
+    <strong>Buried:</strong> Al-Masjid an-Nabawi, Medina</p>
+
+    <p><strong>Learn More:</strong></p>
+    <ul style="text-align: left;">
+      <li><a href="https://www.al-islam.org/life-muhammad-prophet-islam" target="_blank">Life of the Prophet | al-Islam.org</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/Muhammad" target="_blank">Prophet Muhammad - Wikipedia</a></li>
+      <li><a href="https://www.islamicity.org/4974/the-character-of-the-prophet-muhammad/" target="_blank">Character of Muhammad | Islamicity</a></li>
+    </ul>
+  </div>
+</div>
+
+<!-- Fatimah al-Zahra -->
+<div class="modal" id="modal-fatima">
+  <div class="modal-content">
+    <button class="close-modal" onclick="closeModal('fatima')">✖</button>
+    <h2>Fatimah al-Zahra (سلام الله علیها)</h2>
+    <p>
+      Fatimah al-Zahra (605–632 CE), daughter of Prophet Muhammad ﷺ and wife of Imam Ali (ع), is revered for her piety, wisdom, and role in defending the Prophet's message after his death. She is the mother of Hasan and Husayn and is considered a role model for Muslim women. Her sermons and actions after the Prophet's demise remain deeply respected and studied in Islamic history.
+    </p>
+    <p><strong>Born:</strong> 605 CE, Mecca<br>
+    <strong>Died:</strong> 632 CE, Medina<br>
+    <strong>Buried:</strong> Unknown, Medina</p>
+
+    <p><strong>Learn More:</strong></p>
+    <ul style="text-align: left;">
+      <li><a href="https://www.al-islam.org/fatima-the-gracious-abu-muhammad-ordoni" target="_blank">Fatima the Gracious | al-Islam.org</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/Fatima" target="_blank">Fatimah - Wikipedia</a></li>
+      <li><a href="https://www.islamquest.net/en/archive/fa1281" target="_blank">Fatima’s Sermon | IslamQuest</a></li>
+    </ul>
+  </div>
+</div>
+
+<!-- Imam Ali (ع) -->
+<div class="modal" id="modal-ali">
+  <div class="modal-content">
+    <button class="close-modal" onclick="closeModal('ali')">✖</button>
+    <h2>Imam Ali (ع)</h2>
+    <p>
+      Ali ibn Abi Talib (c. 600 – 661 CE) was the cousin and son-in-law of Prophet Muhammad ﷺ. He was the first male to accept Islam and is revered as the first Imam in Shia Islam and the fourth Caliph in Sunni tradition. Known for his wisdom, bravery, and justice, he played a key role in early Islamic battles and governance. His sermons and sayings are preserved in the famous work <em>Nahj al-Balagha</em>.
+    </p>
+    <p><strong>Born:</strong> circa 600 CE, inside the Kaaba, Mecca<br>
+    <strong>Died:</strong> 661 CE, Kufa<br>
+    <strong>Buried:</strong> Najaf, Iraq</p>
+
+    <p><strong>Learn More:</strong></p>
+    <ul style="text-align: left;">
+      <!-- English Sources -->
+      <li><a href="https://www.al-islam.org/imam-ali-baqir-sharif-al-qurashi" target="_blank">Imam Ali by Baqir Sharif al-Qurashi | al-Islam.org</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/Ali" target="_blank">Ali - Biography | Wikipedia</a></li>
+      <li><a href="https://www.nahjulbalagha.org/" target="_blank">Nahj al-Balagha Online (English & Arabic)</a></li>
+
+      <!-- Hindi Sources -->
+      <li><a href="https://www.tebyan.net/index.aspx?pid=104746" target="_blank">इमाम अली का जीवन | Tebyan (हिंदी)</a></li>
+      <li><a href="https://www.quraninhindi.com/" target="_blank">क़ुरान और इस्लाम | QuranInHindi.com</a></li>
+
+      <!-- Urdu Sources -->
+      <li><a href="https://www.al-islam.org/ur/imam-ali-ki-zindagi-baqir-sharif-al-qurashi" target="_blank">امام علی کی سیرت | al-Islam.org (اردو)</a></li>
+      <li><a href="https://www.qurano.com/ur/" target="_blank">قرآن آن لائن | Qurano.com</a></li>
+    </ul>
+  </div>
+</div>
+<!-- Imam Hasan (ع) -->
+<div class="modal" id="modal-hasan">
+  <div class="modal-content">
+    <button class="close-modal" onclick="closeModal('hasan')">✖</button>
+    <h2>Imam Hasan (ع)</h2>
+    <p>
+      Imam Hasan ibn Ali (c. 625 – 670 CE) was the eldest grandson of Prophet Muhammad ﷺ and the second Imam in Shia Islam. Known for his deep knowledge and generosity, he became Imam after his father Ali (ع) and later entered a peace treaty with Muawiyah to prevent civil war within the Muslim community. His patience and wisdom are highly praised in Islamic history.
+    </p>
+    <p><strong>Born:</strong> 625 CE, Medina<br>
+    <strong>Died:</strong> 670 CE, allegedly poisoned<br>
+    <strong>Buried:</strong> Jannat al-Baqi, Medina</p>
+
+    <p><strong>Learn More:</strong></p>
+    <ul style="text-align: left;">
+      <!-- English Sources -->
+      <li><a href="https://www.al-islam.org/imam-hasan-peace-maker-jafar-subhani" target="_blank">Imam Hasan: The Peace Maker | al-Islam.org</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/Hasan_ibn_Ali" target="_blank">Hasan ibn Ali - Wikipedia</a></li>
+      <li><a href="https://www.islamquest.net/en/archive/fa714" target="_blank">Why did Imam Hasan sign the peace treaty? | IslamQuest</a></li>
+
+      <!-- Hindi Sources -->
+      <li><a href="https://www.tebyan.net/index.aspx?pid=104753" target="_blank">इमाम हसन की जीवनी | Tebyan Hindi</a></li>
+      <li><a href="https://www.quraninhindi.com/" target="_blank">इस्लामी इतिहास | QuranInHindi.com</a></li>
+
+      <!-- Urdu Sources -->
+      <li><a href="https://www.al-islam.org/ur/serat-e-imam-hasan-mujtaba" target="_blank">سیرت امام حسن (ع) | al-Islam.org (اردو)</a></li>
+      <li><a href="https://www.qurano.com/ur/" target="_blank">قرآن و سیرت | Qurano.com</a></li>
+    </ul>
+  </div>
+</div>
+<!-- Imam Husayn (ع) -->
+<div class="modal" id="modal-husayn">
+  <div class="modal-content">
+    <button class="close-modal" onclick="closeModal('husayn')">✖</button>
+    <h2>Imam Husayn (ع)</h2>
+    <p>
+      Imam Husayn ibn Ali (626 – 680 CE) was the younger grandson of Prophet Muhammad ﷺ and the third Imam in Shia Islam. He is most known for his courageous stand against tyranny at the Battle of Karbala in 680 CE, where he and his companions were martyred. His sacrifice is honored annually on Ashura. He symbolizes resistance, justice, and faith.
+    </p>
+    <p><strong>Born:</strong> 626 CE, Medina<br>
+    <strong>Martyred:</strong> 680 CE, Karbala<br>
+    <strong>Buried:</strong> Karbala, Iraq</p>
+
+    <p><strong>Learn More:</strong></p>
+    <ul style="text-align: left;">
+      <!-- English Sources -->
+      <li><a href="https://www.al-islam.org/imam-husayn-life-and-martyrdom-baqir-sharif-al-qurashi" target="_blank">Imam Husayn: Life & Martyrdom | al-Islam.org</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/Husayn_ibn_Ali" target="_blank">Husayn ibn Ali - Wikipedia</a></li>
+      <li><a href="https://www.britannica.com/biography/Al-Husayn-ibn-Ali" target="_blank">Husayn ibn Ali | Britannica</a></li>
+      <li><a href="https://thaqalayn.net/" target="_blank">Shia Hadith Collections | Thaqalayn.net</a></li>
+
+      <!-- Hindi Sources -->
+      <li><a href="https://www.tebyan.net/index.aspx?pid=104755" target="_blank">कर्बला और इमाम हुसैन | Tebyan Hindi</a></li>
+      <li><a href="https://www.quraninhindi.com/" target="_blank">Ashura और शहादत | QuranInHindi.com</a></li>
+
+      <!-- Urdu Sources -->
+      <li><a href="https://www.al-islam.org/ur/karbala-ka-sach" target="_blank">کربلا کی حقیقت | al-Islam.org (اردو)</a></li>
+      <li><a href="https://www.qurano.com/ur/" target="_blank">قرآن و عاشورا | Qurano.com</a></li>
+    </ul>
+  </div>
+</div>
+<!-- Imam Zayn al-Abidin (ع) -->
+<div class="modal" id="modal-sajjad">
+  <div class="modal-content">
+    <button class="close-modal" onclick="closeModal('sajjad')">✖</button>
+    <h2>Imam Zayn al-Abidin (ع)</h2>
+    <p>
+      Imam Ali ibn Husayn, also known as Zayn al-Abidin or Imam Sajjad (c. 658 – 713 CE), was the son of Imam Husayn (ع) and the fourth Imam in Shia Islam. He survived the Battle of Karbala and is best known for his spiritual teachings and supplications, compiled in the renowned book <em>Al-Sahifa al-Sajjadiyya</em>. He led the community during a time of political turmoil with wisdom and piety.
+    </p>
+    <p><strong>Born:</strong> c. 658 CE, Medina<br>
+    <strong>Died:</strong> 713 CE, allegedly poisoned<br>
+    <strong>Buried:</strong> Jannat al-Baqi, Medina</p>
+
+    <p><strong>Learn More:</strong></p>
+    <ul style="text-align: left;">
+      <!-- English Sources -->
+      <li><a href="https://www.al-islam.org/complete-sahifa-sajjadiyya" target="_blank">Al-Sahifa al-Sajjadiyya (Complete) | al-Islam.org</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/Ali_ibn_Husayn_Zayn_al-Abidin" target="_blank">Zayn al-Abidin - Wikipedia</a></li>
+      <li><a href="https://www.islamquest.net/en/archive/fa6607" target="_blank">Who was Imam Sajjad? | IslamQuest</a></li>
+
+      <!-- Hindi Sources -->
+      <li><a href="https://www.tebyan.net/index.aspx?pid=104756" target="_blank">इमाम ज़ैनुल आबिदीन की शिक्षाएं | Tebyan Hindi</a></li>
+      <li><a href="https://www.quraninhindi.com/" target="_blank">सहिफा सज्जादिया और दुआएँ | QuranInHindi.com</a></li>
+
+      <!-- Urdu Sources -->
+      <li><a href="https://www.al-islam.org/ur/sahifa-sajjadiya" target="_blank">صحیفہ سجادیہ | al-Islam.org (اردو)</a></li>
+      <li><a href="https://www.qurano.com/ur/" target="_blank">قرآن و امام سجاد | Qurano.com</a></li>
+    </ul>
+  </div>
+</div>
+<!-- Imam Muhammad al-Baqir (ع) -->
+<div class="modal" id="modal-baqir">
+  <div class="modal-content">
+    <button class="close-modal" onclick="closeModal('baqir')">✖</button>
+    <h2>Imam Muhammad al-Baqir (ع)</h2>
+    <p>
+      Imam Muhammad al-Baqir (676 – 732 CE) was the fifth Imam in Shia Islam and the son of Imam Zayn al-Abidin (ع). His title "al-Baqir" means "the one who splits knowledge open," signifying his deep expertise in Islamic sciences, jurisprudence, and Quranic interpretation. He established a strong base of scholarly learning in Medina that laid the foundation for future generations of Islamic thought.
+    </p>
+    <p><strong>Born:</strong> 676 CE, Medina<br>
+    <strong>Died:</strong> 732 CE, allegedly poisoned<br>
+    <strong>Buried:</strong> Jannat al-Baqi, Medina</p>
+
+    <p><strong>Learn More:</strong></p>
+    <ul style="text-align: left;">
+      <!-- English Sources -->
+      <li><a href="https://www.al-islam.org/imam-muhammad-al-baqir-life-and-thought" target="_blank">Life & Thought of Imam al-Baqir | al-Islam.org</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/Muhammad_al-Baqir" target="_blank">Muhammad al-Baqir - Wikipedia</a></li>
+      <li><a href="https://www.islamquest.net/en/archive/fa663" target="_blank">Imam Baqir’s Knowledge & Era | IslamQuest</a></li>
+
+      <!-- Hindi Sources -->
+      <li><a href="https://www.tebyan.net/index.aspx?pid=104757" target="_blank">इमाम बाक़िर की जीवनी | Tebyan Hindi</a></li>
+      <li><a href="https://www.quraninhindi.com/" target="_blank">इस्लामी ज्ञान परंपरा | QuranInHindi.com</a></li>
+
+      <!-- Urdu Sources -->
+      <li><a href="https://www.al-islam.org/ur/imam-baqir-ke-fazail" target="_blank">امام محمد باقر (ع) | al-Islam.org (اردو)</a></li>
+      <li><a href="https://www.qurano.com/ur/" target="_blank">قرآن و امام باقر | Qurano.com</a></li>
+    </ul>
+  </div>
+</div>
+<!-- Imam Ja'far al-Sadiq (ع) -->
+<div class="modal" id="modal-sadiq">
+  <div class="modal-content">
+    <button class="close-modal" onclick="closeModal('sadiq')">✖</button>
+    <h2>Imam Ja'far al-Sadiq (ع)</h2>
+    <p>
+      Imam Ja'far al-Sadiq (702 – 765 CE) was the sixth Imam in Shia Islam and one of the most influential figures in Islamic jurisprudence. He founded the Ja'fari school of thought and taught many prominent scholars, including Abu Hanifa and Malik ibn Anas. He contributed immensely to theology, ethics, and science, fostering a golden age of Islamic intellectualism during the Umayyad and Abbasid periods.
+    </p>
+    <p><strong>Born:</strong> 702 CE, Medina<br>
+    <strong>Died:</strong> 765 CE, allegedly poisoned<br>
+    <strong>Buried:</strong> Jannat al-Baqi, Medina</p>
+
+    <p><strong>Learn More:</strong></p>
+    <ul style="text-align: left;">
+      <!-- English Sources -->
+      <li><a href="https://www.al-islam.org/imam-jafar-al-sadiq" target="_blank">Imam Ja'far al-Sadiq | al-Islam.org</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/Ja%27far_al-Sadiq" target="_blank">Ja'far al-Sadiq - Wikipedia</a></li>
+      <li><a href="https://www.islamquest.net/en/archive/fa2881" target="_blank">His Influence on Islamic Thought | IslamQuest</a></li>
+
+      <!-- Hindi Sources -->
+      <li><a href="https://www.tebyan.net/index.aspx?pid=104758" target="_blank">इमाम जाफर अल-सादिक (अ) | Tebyan Hindi</a></li>
+      <li><a href="https://www.quraninhindi.com/" target="_blank">इस्लामी क़ानून और शिक्षा | QuranInHindi.com</a></li>
+
+      <!-- Urdu Sources -->
+      <li><a href="https://www.al-islam.org/ur/serat-e-imam-jafar-sadiq" target="_blank">سیرت امام جعفر صادق (ع) | al-Islam.org (اردو)</a></li>
+      <li><a href="https://www.qurano.com/ur/" target="_blank">قرآن و امام صادق | Qurano.com</a></li>
+    </ul>
+  </div>
+</div>
+<!-- Imam Musa al-Kazim (ع) -->
+<div class="modal" id="modal-kazim">
+  <div class="modal-content">
+    <button class="close-modal" onclick="closeModal('kazim')">✖</button>
+    <h2>Imam Musa al-Kazim (ع)</h2>
+    <p>
+      Imam Musa al-Kazim (745 – 799 CE) was the seventh Imam in Shia Islam. Known as "al-Kazim" meaning "the one who swallows his anger," he exemplified patience and perseverance during severe persecution under the Abbasid caliphs. Much of his life was spent under surveillance or in prison. Despite restrictions, he nurtured many disciples and defended the rights of the Ahl al-Bayt through quiet endurance.
+    </p>
+    <p><strong>Born:</strong> 745 CE, Medina<br>
+    <strong>Died:</strong> 799 CE, Baghdad (martyrdom in prison)<br>
+    <strong>Buried:</strong> Kadhimayn, Iraq</p>
+
+    <p><strong>Learn More:</strong></p>
+    <ul style="text-align: left;">
+      <!-- English Sources -->
+      <li><a href="https://www.al-islam.org/imam-musa-al-kazim-life-and-mission" target="_blank">Imam Musa al-Kazim | al-Islam.org</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/Musa_al-Kadhim" target="_blank">Musa al-Kazim - Wikipedia</a></li>
+      <li><a href="https://www.islamquest.net/en/archive/fa10556" target="_blank">Imam Kazim’s Imamate & Legacy | IslamQuest</a></li>
+
+      <!-- Hindi Sources -->
+      <li><a href="https://www.tebyan.net/index.aspx?pid=104759" target="_blank">इमाम मूसा अल-काज़िम (अ) | Tebyan Hindi</a></li>
+      <li><a href="https://www.quraninhindi.com/" target="_blank">काज़िम और अब्बासी खिलाफत | QuranInHindi.com</a></li>
+
+      <!-- Urdu Sources -->
+      <li><a href="https://www.al-islam.org/ur/imam-kazim-aur-sabar" target="_blank">امام موسیٰ کاظم (ع) | al-Islam.org (اردو)</a></li>
+      <li><a href="https://www.qurano.com/ur/" target="_blank">قرآن و امام کاظم | Qurano.com</a></li>
+    </ul>
+  </div>
+</div>
+<!-- Imam Ali al-Ridha (ع) -->
+<div class="modal" id="modal-ridha">
+  <div class="modal-content">
+    <button class="close-modal" onclick="closeModal('ridha')">✖</button>
+    <h2>Imam Ali al-Ridha (ع)</h2>
+    <p>
+      Imam Ali al-Ridha (766 – 818 CE) was the eighth Imam in Shia Islam. Known for his eloquence and deep knowledge, he was invited by the Abbasid Caliph al-Ma'mun to be his successor, a move seen as politically motivated. Imam Ridha engaged in several public theological debates and dialogues with scholars of different faiths. He is revered for his wisdom, diplomacy, and piety.
+    </p>
+    <p><strong>Born:</strong> 766 CE, Medina<br>
+    <strong>Died:</strong> 818 CE, poisoned in Tus<br>
+    <strong>Buried:</strong> Mashhad, Iran</p>
+
+    <p><strong>Learn More:</strong></p>
+    <ul style="text-align: left;">
+      <!-- English Sources -->
+      <li><a href="https://www.al-islam.org/imam-ali-ridha-his-life-and-times" target="_blank">Imam Ali al-Ridha: Life & Times | al-Islam.org</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/Ali_al-Ridha" target="_blank">Ali al-Ridha - Wikipedia</a></li>
+      <li><a href="https://www.islamquest.net/en/archive/fa859" target="_blank">Debates of Imam Ridha | IslamQuest</a></li>
+
+      <!-- Hindi Sources -->
+      <li><a href="https://www.tebyan.net/index.aspx?pid=104760" target="_blank">इमाम अली रज़ा (अ) | Tebyan Hindi</a></li>
+      <li><a href="https://www.quraninhindi.com/" target="_blank">रज़ा और अब्बासी साम्राज्य | QuranInHindi.com</a></li>
+
+      <!-- Urdu Sources -->
+      <li><a href="https://www.al-islam.org/ur/serat-e-imam-ridha" target="_blank">سیرت امام علی رضا (ع) | al-Islam.org (اردو)</a></li>
+      <li><a href="https://www.qurano.com/ur/" target="_blank">قرآن و امام رضا | Qurano.com</a></li>
+    </ul>
+  </div>
+</div>
+<!-- Imam Muhammad al-Taqi (ع) -->
+<div class="modal" id="modal-taqi">
+  <div class="modal-content">
+    <button class="close-modal" onclick="closeModal('taqi')">✖</button>
+    <h2>Imam Muhammad al-Taqi (ع)</h2>
+    <p>
+      Imam Muhammad al-Taqi (810 – 835 CE), also known as Imam al-Jawad, was the ninth Imam in Shia Islam. He assumed the role of Imam at a young age and was known for his unmatched knowledge, wisdom, and piety. Despite facing political pressures from the Abbasid caliphs, he held several theological debates and guided his followers through correspondence and scholarship.
+    </p>
+    <p><strong>Born:</strong> 810 CE, Medina<br>
+    <strong>Died:</strong> 835 CE, Baghdad (allegedly poisoned)<br>
+    <strong>Buried:</strong> Kadhimayn, Iraq</p>
+
+    <p><strong>Learn More:</strong></p>
+    <ul style="text-align: left;">
+      <!-- English Sources -->
+      <li><a href="https://www.al-islam.org/imam-muhammad-al-taqi-al-jawad-life-and-legacy" target="_blank">Imam al-Jawad | al-Islam.org</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/Muhammad_al-Taqi" target="_blank">Muhammad al-Taqi - Wikipedia</a></li>
+      <li><a href="https://www.islamquest.net/en/archive/fa15026" target="_blank">Imam Taqi’s Youth & Knowledge | IslamQuest</a></li>
+
+      <!-- Hindi Sources -->
+      <li><a href="https://www.tebyan.net/index.aspx?pid=104761" target="_blank">इमाम मुहम्मद अल-तकी (अ) | Tebyan Hindi</a></li>
+      <li><a href="https://www.quraninhindi.com/" target="_blank">इस्लामी शासकों के समय | QuranInHindi.com</a></li>
+
+      <!-- Urdu Sources -->
+      <li><a href="https://www.al-islam.org/ur/serat-e-imam-jawad" target="_blank">سیرت امام محمد تقی (ع) | al-Islam.org (اردو)</a></li>
+      <li><a href="https://www.qurano.com/ur/" target="_blank">قرآن و امام تقی | Qurano.com</a></li>
+    </ul>
+  </div>
+</div>
+<!-- Imam Ali al-Hadi (ع) -->
+<div class="modal" id="modal-hadi">
+  <div class="modal-content">
+    <button class="close-modal" onclick="closeModal('hadi')">✖</button>
+    <h2>Imam Ali al-Hadi (ع)</h2>
+    <p>
+      Imam Ali al-Hadi (828 – 868 CE), also known as Imam al-Naqi, was the tenth Imam in Shia Islam. He was recognized for his calm leadership and dedication to spreading religious knowledge during a time of intense political surveillance. Despite being confined in Samarra by the Abbasid regime, he maintained communication with his followers and addressed theological issues through letters.
+    </p>
+    <p><strong>Born:</strong> 828 CE, Medina<br>
+    <strong>Died:</strong> 868 CE, Samarra (allegedly poisoned)<br>
+    <strong>Buried:</strong> Al-Askari Shrine, Samarra, Iraq</p>
+
+    <p><strong>Learn More:</strong></p>
+    <ul style="text-align: left;">
+      <!-- English Sources -->
+      <li><a href="https://www.al-islam.org/imam-ali-al-hadi-life-and-works" target="_blank">Imam Ali al-Hadi | al-Islam.org</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/Ali_al-Hadi" target="_blank">Ali al-Hadi - Wikipedia</a></li>
+      <li><a href="https://www.islamquest.net/en/archive/fa713" target="_blank">Teachings of Imam Hadi | IslamQuest</a></li>
+
+      <!-- Hindi Sources -->
+      <li><a href="https://www.tebyan.net/index.aspx?pid=104762" target="_blank">इमाम अली हादी (अ) | Tebyan Hindi</a></li>
+      <li><a href="https://www.quraninhindi.com/" target="_blank">समर्रा की घेराबंदी | QuranInHindi.com</a></li>
+
+      <!-- Urdu Sources -->
+      <li><a href="https://www.al-islam.org/ur/serat-e-imam-naqi" target="_blank">سیرت امام علی نقی (ع) | al-Islam.org (اردو)</a></li>
+      <li><a href="https://www.qurano.com/ur/" target="_blank">قرآن و امام ہادی | Qurano.com</a></li>
+    </ul>
+  </div>
+</div>
+<!-- Imam Hasan al-Askari (ع) -->
+<div class="modal" id="modal-askari">
+  <div class="modal-content">
+    <button class="close-modal" onclick="closeModal('askari')">✖</button>
+    <h2>Imam Hasan al-Askari (ع)</h2>
+    <p>
+      Imam Hasan al-Askari (846 – 874 CE) was the eleventh Imam in Shia Islam. He lived under house arrest in Samarra by the Abbasid caliphs and was closely monitored throughout his life. Despite these restrictions, he continued to guide his followers through letters and trusted representatives. He is the father of the awaited twelfth Imam, Imam al-Mahdi (عج).
+    </p>
+    <p><strong>Born:</strong> 846 CE, Medina<br>
+    <strong>Died:</strong> 874 CE, Samarra (allegedly poisoned)<br>
+    <strong>Buried:</strong> Al-Askari Shrine, Samarra, Iraq</p>
+
+    <p><strong>Learn More:</strong></p>
+    <ul style="text-align: left;">
+      <!-- English Sources -->
+      <li><a href="https://www.al-islam.org/imam-hasan-al-askari-life-and-trials" target="_blank">Imam Hasan al-Askari | al-Islam.org</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/Hasan_al-Askari" target="_blank">Hasan al-Askari - Wikipedia</a></li>
+      <li><a href="https://www.islamquest.net/en/archive/fa11811" target="_blank">Teachings & Legacy | IslamQuest</a></li>
+
+      <!-- Hindi Sources -->
+      <li><a href="https://www.tebyan.net/index.aspx?pid=104763" target="_blank">इमाम हसन अल-आस्करी (अ) | Tebyan Hindi</a></li>
+      <li><a href="https://www.quraninhindi.com/" target="_blank">शियाओं के 11वें इमाम | QuranInHindi.com</a></li>
+
+      <!-- Urdu Sources -->
+      <li><a href="https://www.al-islam.org/ur/serat-e-imam-askari" target="_blank">سیرت امام حسن عسکری (ع) | al-Islam.org (اردو)</a></li>
+      <li><a href="https://www.qurano.com/ur/" target="_blank">قرآن و امام عسکری | Qurano.com</a></li>
+    </ul>
+  </div>
+</div>
+<!-- Imam Muhammad al-Mahdi (عج) -->
+<div class="modal" id="modal-mahdi">
+  <div class="modal-content">
+    <button class="close-modal" onclick="closeModal('mahdi')">✖</button>
+    <h2>Imam Muhammad al-Mahdi (عج)</h2>
+    <p>
+      Imam Muhammad ibn Hasan al-Mahdi (born 869 CE) is the twelfth and final Imam in Twelver Shia Islam. Believed to be in occultation (ghaybah), he is known as the awaited savior who will reappear to establish global justice and peace. His occultation is divided into two periods: the Minor Occultation (874–941 CE), during which he communicated through deputies, and the Major Occultation (since 941 CE), which continues until his reappearance.
+    </p>
+    <p><strong>Born:</strong> 869 CE, Samarra, Iraq<br>
+    <strong>Status:</strong> In occultation since 874 CE<br>
+    <strong>Title:</strong> Al-Mahdi (The Guided One)</p>
+
+    <p><strong>Learn More:</strong></p>
+    <ul style="text-align: left;">
+      <!-- English Sources -->
+      <li><a href="https://www.al-islam.org/occultation-imam-mahdi" target="_blank">Occultation of Imam Mahdi | al-Islam.org</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/Muhammad_al-Mahdi" target="_blank">Muhammad al-Mahdi - Wikipedia</a></li>
+      <li><a href="https://www.islamquest.net/en/archive/fa2315" target="_blank">The Awaited Savior | IslamQuest</a></li>
+
+      <!-- Hindi Sources -->
+      <li><a href="https://www.tebyan.net/index.aspx?pid=104764" target="_blank">इमाम मेहंदी की प्रतीक्षा | Tebyan Hindi</a></li>
+      <li><a href="https://www.quraninhindi.com/" target="_blank">मसीहा की अवधारणा | QuranInHindi.com</a></li>
+
+      <!-- Urdu Sources -->
+      <li><a href="https://www.al-islam.org/ur/imam-mehdi-ghaybat-ka-haqeeqat" target="_blank">امام مہدی (عج) | al-Islam.org (اردو)</a></li>
+      <li><a href="https://www.qurano.com/ur/" target="_blank">قرآن و مہدی (عج) | Qurano.com</a></li>
+    </ul>
+  </div>
+</div>
+<!-- Scripts -->
+<script src="https://unpkg.com/i18next@21.6.13/i18next.min.js"></script>
+<script src="https://unpkg.com/i18next-browser-languagedetector@6.1.2/i18nextBrowserLanguageDetector.min.js"></script>
+<script src="https://unpkg.com/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="https://unpkg.com/jquery-i18next@1.2.1/dist/umd/jquery-i18next.min.js"></script>
+
+<script>
+  // Modal open/close
+  function openModal(id) {
+    document.getElementById('modal-' + id).style.display = 'block';
+  }
+
+  function closeModal(id) {
+    document.getElementById('modal-' + id).style.display = 'none';
+  }
+
+  // Theme Toggle
+  function toggleTheme() {
+    document.body.classList.toggle('light-theme');
+    const isLight = document.body.classList.contains('light-theme');
+    document.body.style.backgroundColor = isLight ? '#f2f2f2' : '#0a0a0a';
+    document.body.style.color = isLight ? '#111' : '#fff';
+  }
+
+  // Language Switching
+  const resources = {
+    en: {
+      translation: {
+        "Islam": "Islam",
+        "The Fourteen Infallibles": "The Fourteen Infallibles",
+        "Welcome": "Welcome",
+        "Enter Site": "Enter Site",
+        "Switch Language": "Switch Language",
+        "Toggle Theme": "Toggle Theme"
+      }
+    },
+    hi: {
+      translation: {
+        "Islam": "इस्लाम",
+        "The Fourteen Infallibles": "चौदह मासूम",
+        "Welcome": "स्वागत है",
+        "Enter Site": "वेबसाइट में प्रवेश करें",
+        "Switch Language": "भाषा बदलें",
+        "Toggle Theme": "थीम बदलें"
+      }
+    },
+    ur: {
+      translation: {
+        "Islam": "اسلام",
+        "The Fourteen Infallibles": "چودہ معصومین",
+        "Welcome": "خوش آمدید",
+        "Enter Site": "ویب سائٹ پر جائیں",
+        "Switch Language": "زبان تبدیل کریں",
+        "Toggle Theme": "تھیم تبدیل کریں"
+      }
+    }
+  };
+
+  i18next
+    .use(i18nextBrowserLanguageDetector)
+    .init({
+      resources,
+      fallbackLng: 'en',
+      debug: false
+    }, function(err, t) {
+      jqueryI18next.init(i18next, $, { useOptionsAttr: true });
+      $('body').localize();
+    });
+
+  function switchLanguage() {
+    const current = i18next.language;
+    const next = current === 'en' ? 'hi' : (current === 'hi' ? 'ur' : 'en');
+    i18next.changeLanguage(next, () => $('body').localize());
+  }
+</script>
+<script>
+  function openModal(name) {
+    document.getElementById('modal-' + name).style.display = 'block';
+  }
+
+  function closeModal(name) {
+    document.getElementById('modal-' + name).style.display = 'none';
+  }
+
+  function toggleTheme() {
+    const body = document.body;
+    if (body.style.backgroundColor === 'white') {
+      body.style.backgroundColor = '#0a0a0a';
+      body.style.color = 'white';
+    } else {
+      body.style.backgroundColor = 'white';
+      body.style.color = 'black';
+    }
+  }
+
+  function switchLanguage() {
+    alert('Multilingual support coming soon!');
+  }
+</script>
+
+</body>
+</html>
+
+
